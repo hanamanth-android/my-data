@@ -1,0 +1,326 @@
+package com.example.mynotes.dutypackage.view;
+
+import android.Manifest;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
+import android.view.View;
+import android.webkit.MimeTypeMap;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.example.mynotes.R;
+import com.example.mynotes.dutypackage.model.DutySheet;
+
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Iterator;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
+
+public class DutyHomeActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private static final String TAG = "hh";
+    EditText date, duty, time, km,night, remarks;
+    Button save,read;
+  public static  int i=0;
+File f;
+    DutySheet dutySheet;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_duty_home);
+        property();
+        initView();
+         dutySheet=new DutySheet(
+                date.getText().toString(),
+                duty.getText().toString(),
+                time.getText().toString(),
+                km.getText().toString(),
+                night.getText().toString(),
+                remarks.getText().toString()
+        );
+
+        save.setOnClickListener(this);
+        read.setOnClickListener(this);
+
+
+
+
+
+    }
+
+    public void initView() {
+        date = findViewById(R.id.edit_text_date);
+        duty = findViewById(R.id.edit_text_duty);
+        time = findViewById(R.id.edit_text_time);
+        km = findViewById(R.id.edit_text_km);
+        night=findViewById(R.id.edit_text_night);
+        remarks = findViewById(R.id.edit_text_remarks);
+        save = findViewById(R.id.button_save);
+        read=findViewById(R.id.button_read);
+
+    }
+
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.button_save:
+                // saveExcelFile(DutyHomeActivity.this,"myExcel.xls");
+
+                    createXlsx(i++);
+
+                break;
+            case R.id.button_read:
+                // saveExcelFile(DutyHomeActivity.this,"myExcel.xls");
+                readExcelFile(this);
+                break;
+
+        }
+    }
+    private void updateExcel(int i1) {
+        try {
+
+            f=new File(getApplicationContext().getExternalFilesDir(null),"haa.xls");
+            Workbook workbook = new HSSFWorkbook();
+            InputStream inputStream=new FileInputStream(f);
+            // Create a POIFSFileSystem object
+            POIFSFileSystem myFileSystem = new POIFSFileSystem(inputStream);
+
+            // Create a workbook using the File System
+            HSSFWorkbook myWorkBook = new HSSFWorkbook(myFileSystem);
+
+            // Get the first sheet from workbook
+            HSSFSheet sheet = myWorkBook.getSheetAt(0);
+
+            HSSFRow row=sheet.getRow(i1);
+            HSSFCell cell=row.getCell(i1);
+            cell.setCellValue(date.getText().toString());
+            OutputStream outputStream = new FileOutputStream(f);/*new File(path, "/poi.xls"*/
+
+            Log.d(TAG, "createXlsx:1 ");
+
+
+
+            Log.d(TAG, "createXlsx: 2");
+            workbook.write(outputStream);
+            outputStream.close();
+
+            Toast.makeText(this, "poi.xls was successfully created"+i1, Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void createXlsx(int i1) {
+        try {
+
+            f=new File(getApplicationContext().getExternalFilesDir(null),"haa.xls");
+
+            Workbook workbook = new HSSFWorkbook();
+            OutputStream outputStream = new FileOutputStream(f);/*new File(path, "/poi.xls"*/
+
+            Log.d(TAG, "createXlsx:1 ");
+            Sheet sheet = workbook.createSheet("Sheet 1");
+            Row row = sheet.createRow(i1);
+            Cell cell = row.createCell(0);
+            cell.setCellValue(date.getText().toString());
+
+            cell = row.createCell(1);
+            cell.setCellValue(duty.getText().toString());
+
+
+              cell = row.createCell(2);
+            cell.setCellValue(time.getText().toString());
+
+              cell = row.createCell(3);
+           cell.setCellValue(km.getText().toString());
+
+
+              cell = row.createCell(4);
+            cell.setCellValue(night.getText().toString());
+            Log.i(TAG, "createXlsx: "+dutySheet.getDate());
+
+              cell = row.createCell(5);
+            cell.setCellValue(remarks.getText().toString());
+
+
+
+            Log.d(TAG, "createXlsx: 2");
+           workbook.write(outputStream);
+            outputStream.close();
+
+            Toast.makeText(this, "poi.xls was successfully created"+i1, Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*private File createImageFile() throws IOException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
+        String timestamp = sdf.format(new Date());
+        String imgFilename = "JPEG_" + timestamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
+        // currentPhotopath = image.getAbsolutePath();
+        return File.createTempFile(imgFilename, ".xls", storageDir);
+    }*/
+
+    /*private static boolean saveExcelFile(Context context, String fileName) {
+
+        // check if available and not read only
+        if (!isExternalStorageAvailable() || isExternalStorageReadOnly()) {
+            Log.e(TAG, "Storage not available or read only");
+            return false;
+        }
+
+        boolean success = false;
+
+        //New Workbook
+        Workbook wb = new HSSFWorkbook();
+
+        Cell c = null;
+
+        //Cell style for header row
+        CellStyle cs = wb.createCellStyle();
+       // cs.setFillForegroundColor(HSSFColor.LIME.index);
+       // cs.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+
+        //New Sheet
+        Sheet sheet1 = null;
+        sheet1 = wb.createSheet("myOrder");
+
+        // Generate column headings
+        Row row = sheet1.createRow(0);
+
+        c = row.createCell(0);
+        c.setCellValue("Item Number");
+        c.setCellStyle(cs);
+
+        c = row.createCell(1);
+        c.setCellValue("Quantity");
+        c.setCellStyle(cs);
+
+        c = row.createCell(2);
+        c.setCellValue("Price");
+        c.setCellStyle(cs);
+
+        sheet1.setColumnWidth(0, (15 * 500));
+        sheet1.setColumnWidth(1, (15 * 500));
+        sheet1.setColumnWidth(2, (15 * 500));
+
+        // Create a path where we will place our List of objects on external storage
+        File file = new File(context.getExternalFilesDir(null), fileName);
+
+        try (FileOutputStream os = new FileOutputStream(file)) {
+            wb.write(os);
+            Log.w("FileUtils", "Writing file" + file);
+            success = true;
+        } catch (IOException e) {
+            Log.w("FileUtils", "Error writing " + file, e);
+        } catch (Exception e) {
+            Log.w("FileUtils", "Failed to save file", e);
+        }
+        return success;
+    }*/
+
+    private static void readExcelFile(Context context) {
+
+        if (!isExternalStorageAvailable() || isExternalStorageReadOnly())
+        {
+            Log.e(TAG, "Storage not available or read only");
+            return;
+        }
+
+        try{
+            // Creating Input Stream
+            File file = new File(context.getExternalFilesDir(null), "haa.xls");
+            FileInputStream myInput = new FileInputStream(file);
+
+            // Create a POIFSFileSystem object
+            POIFSFileSystem myFileSystem = new POIFSFileSystem(myInput);
+
+            // Create a workbook using the File System
+            HSSFWorkbook myWorkBook = new HSSFWorkbook(myFileSystem);
+
+            // Get the first sheet from workbook
+            HSSFSheet mySheet = myWorkBook.getSheetAt(0);
+
+            // We now need something to iterate through the cells.
+            Iterator rowIter = mySheet.rowIterator();
+
+            while(rowIter.hasNext()){
+                HSSFRow myRow = (HSSFRow) rowIter.next();
+                Iterator cellIter = myRow.cellIterator();
+                while(cellIter.hasNext()){
+                    HSSFCell myCell = (HSSFCell) cellIter.next();
+                    Log.d(TAG, "Cell Value: " +  myCell.toString());
+                    Toast.makeText(context, "cell Value: " + myCell.toString(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        }catch (Exception e){e.printStackTrace(); }
+
+
+    }
+
+   public static boolean isExternalStorageReadOnly() {
+        String extStorageState = Environment.getExternalStorageState();
+        return Environment.MEDIA_MOUNTED_READ_ONLY.equals(extStorageState);
+    }
+
+    public static boolean isExternalStorageAvailable() {
+        String extStorageState = Environment.getExternalStorageState();
+        return Environment.MEDIA_MOUNTED.equals(extStorageState);
+    }
+
+    public void property() {
+        System.setProperty("org.apache.poi.javax.xml.stream.XMLInputFactory", "com.fasterxml.aalto.stax.InputFactoryImpl");
+        System.setProperty("org.apache.poi.javax.xml.stream.XMLOutputFactory", "com.fasterxml.aalto.stax.OutputFactoryImpl");
+        System.setProperty("org.apache.poi.javax.xml.stream.XMLEventFactory", "com.fasterxml.aalto.stax.EventFactoryImpl");
+    }
+
+    public void openfile() {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        Uri apkUri = FileProvider.getUriForFile(this, getPackageName(),  new File(getApplicationContext().getExternalFilesDir(null), "haa.xls"));
+        MimeTypeMap myMime = MimeTypeMap.getSingleton();
+        String mimeType = myMime.getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(apkUri.toString()));
+        intent.setDataAndType(apkUri, mimeType);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        Log.i(TAG, "openfile: " + mimeType);
+        startActivity(intent);
+    }
+
+    public void permissionStorage(){
+        if (ActivityCompat.checkSelfPermission(DutyHomeActivity.this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED){
+            createFolder();
+        }
+    }
+
+    private void createFolder() {
+       // File file=new File(Environment.get)
+    }
+}

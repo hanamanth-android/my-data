@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/addDuty"
+        android:title="@string/add_note" />
+
+    <item
+        android:id="@+id/dutysheet"
+
+        android:title="@string/duty_sheets" />
+    <item
+        android:id="@+id/duty_settings"
+        android:title="settings"
+
+        />
+
+
+</menu>

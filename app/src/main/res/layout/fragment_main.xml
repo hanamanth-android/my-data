@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorControlHighlight"
+    android:fitsSystemWindows="true"
+    tools:context=".dutypackage.view.MainFragment"
+    tools:ignore="MergeRootFrame">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginBottom="@dimen/_50sdp"
+    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+    <EditText
+        android:id="@+id/search_duty"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:background="@null"
+        android:fontFamily="@font/ubuntu"
+        android:hint="search date or duty"
+        android:imeOptions="actionDone"
+        android:importantForAutofill="no"
+        android:includeFontPadding="false"
+        android:inputType="text"
+        android:textColor="@color/colortexthint"
+        android:textSize="@dimen/_12ssp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:text="month"/>
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/month_spinner"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_marginStart="@dimen/_5sdp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:text="year"/>
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/year_spinner"
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:layout_marginStart="@dimen/_5sdp"
+        />
+    </LinearLayout>
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorBackground"
+                android:stretchColumns="5">
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="@dimen/_80sdp"
+                        android:background="@drawable/border"
+                        android:gravity="center"
+                        android:padding="@dimen/_5sdp"
+                        android:text="DATE"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="@dimen/_80sdp"
+                        android:background="@drawable/border"
+                        android:gravity="center"
+                        android:padding="@dimen/_5sdp"
+                        android:text="DUTY"
+                        android:textStyle="bold"
+
+                        />
+
+                    <TextView
+                        android:layout_width="@dimen/_80sdp"
+                        android:background="@drawable/border"
+                        android:gravity="center"
+                        android:padding="@dimen/_5sdp"
+                        android:text="TIME"
+                        android:textStyle="bold"
+
+                        />
+
+                    <TextView
+                        android:layout_width="@dimen/_80sdp"
+                        android:background="@drawable/border"
+                        android:gravity="center"
+                        android:padding="@dimen/_5sdp"
+                        android:text="KM"
+                        android:textStyle="bold"
+
+                        />
+
+                    <TextView
+                        android:layout_width="@dimen/_80sdp"
+                        android:background="@drawable/border"
+                        android:gravity="center"
+                        android:padding="@dimen/_5sdp"
+                        android:text="NIGHT"
+                        android:textStyle="bold"
+
+                        />
+
+                    <TextView
+                        android:background="@drawable/border"
+                        android:gravity="center"
+                        android:padding="@dimen/_5sdp"
+                        android:text="REMARKS"
+                        android:textStyle="bold"
+
+                        />
+                </TableRow>
+
+            </TableLayout>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyler_duty"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_375sdp"
+                android:background="#E8CBCB"
+             />
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorBackground"
+                android:stretchColumns="5">
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="@dimen/_80sdp"
+                        android:background="@drawable/border"
+                        android:gravity="center"
+                        android:padding="@dimen/_5sdp"
+                        android:text="TOTAL"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="@dimen/_80sdp"
+                        android:background="@drawable/border"
+                        android:gravity="center"
+                        android:padding="@dimen/_5sdp"
+                        android:textStyle="bold"
+
+                        />
+
+                    <TextView
+                        android:layout_width="@dimen/_80sdp"
+                        android:background="@drawable/border"
+                        android:gravity="center"
+                        android:padding="@dimen/_5sdp"
+                        android:textStyle="bold"
+
+                        />
+
+                    <TextView
+                        android:layout_width="@dimen/_80sdp"
+                        android:background="@drawable/border"
+                        android:gravity="center"
+                        android:padding="@dimen/_5sdp"
+                        android:textStyle="bold"
+                        android:id="@+id/total_km"
+                        />
+
+                    <TextView
+                        android:layout_width="@dimen/_80sdp"
+                        android:background="@drawable/border"
+                        android:gravity="center"
+                        android:padding="@dimen/_5sdp"
+                        android:textStyle="bold"
+                        android:id="@+id/total_night"
+                        />
+
+                    <TextView
+                        android:background="@drawable/border"
+                        android:gravity="center"
+                        android:padding="@dimen/_5sdp"
+                        android:textStyle="bold"
+
+                        />
+                </TableRow>
+
+            </TableLayout>
+
+
+        </LinearLayout>
+    </HorizontalScrollView>
+</LinearLayout>
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimaryDark"
+        android:fitsSystemWindows="true">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.MaterialComponents.ActionBar"
+            app:menu="@menu/nav_menu"
+            app:navigationIcon="@drawable/ic_back"
+            app:popupTheme="@style/ThemeOverlay.MaterialComponents.Toolbar.Surface"
+
+            app:title="Duty Sheet"
+            app:titleTextColor="#ffffff" />
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_addDuty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:src="@drawable/ic_add"
+        android:layout_marginBottom="@dimen/_15sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        tools:ignore="ContentDescription" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+

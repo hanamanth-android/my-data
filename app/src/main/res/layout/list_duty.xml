@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorBackground"
+    android:stretchColumns="5"
+  >
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/view_date1"
+            android:background="@drawable/border"
+            android:gravity="center"
+            android:layout_width="@dimen/_80sdp"
+            android:padding="@dimen/_5sdp" />
+
+        <TextView
+            android:id="@+id/view_duty1"
+            android:background="@drawable/border"
+            android:gravity="center"
+            android:padding="@dimen/_5sdp"
+            android:layout_width="@dimen/_80sdp"
+
+            />
+
+        <TextView
+            android:id="@+id/view_time1"
+            android:background="@drawable/border"
+            android:gravity="center"
+            android:padding="@dimen/_5sdp"
+            android:layout_width="@dimen/_80sdp"
+
+            />
+
+        <TextView
+            android:id="@+id/view_km1"
+            android:background="@drawable/border"
+            android:gravity="center"
+            android:padding="@dimen/_5sdp"
+            android:layout_width="@dimen/_80sdp"
+
+            />
+
+        <TextView
+            android:id="@+id/view_night1"
+            android:background="@drawable/border"
+            android:gravity="center"
+            android:padding="@dimen/_5sdp"
+            android:layout_width="@dimen/_80sdp"
+            />
+
+        <TextView
+            android:id="@+id/view_remarks1"
+            android:background="@drawable/border"
+            android:gravity="center"
+            android:padding="@dimen/_5sdp"
+            />
+    </TableRow>
+
+</TableLayout>
